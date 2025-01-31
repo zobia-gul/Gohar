@@ -13,7 +13,7 @@ AUDIO_DIR = r"D:\ClouxiPlexi\GOHAR"
 GTTS_AUDIO_FILE = "gtts_audio.mp3"
 MALE_AUDIO_FILE = "male_audio.mp3"
 
-application_url = "https://1326-103-164-49-34.ngrok-free.app"
+application_url = "https://d44c-110-38-243-127.ngrok-free.app"
 
 @app.route('/audio')
 def serve_audio():
@@ -67,7 +67,7 @@ def send_whatsapp_audio():
     audio_url = f"{application_url}/audio"
     payload = {
         "token": ultramsg_token,
-        "to": "923343664034@c.us",  # Replace with the actual recipient number
+        "to": "923333627118@c.us",  # Replace with the actual recipient number
         "audio": audio_url
     }
     # Send the WhatsApp audio message
@@ -81,23 +81,22 @@ def send_twilio_call():
     #make twilio call
     call = client.calls.create(
         url=f"https://twimlets.com/message?Message[0]={application_url}/audio",
-        to="+923012732226",  # Replace with the actual recipient number
+        to="+923121253698",  # Replace with the actual recipient number
         from_="+19402422194"
     )
     print(f"Call SID: {call.sid}")
     
 def serve_action():
     action_type = "twilio"  # Set to 'whatsapp' or 'twilio' depending on the action
-    if action_type == "twilio":
+    if action_type == "whatsapp":
         send_twilio_call()
     else:
         send_whatsapp_audio()
 
 def start_flask_app():
-    app.run(port=8000)
+    app.run(port=5000)
 
 if __name__ == '__main__':
     flask_thread = threading.Thread(target=start_flask_app)
     flask_thread.start()
-    
     serve_action()
